@@ -3,7 +3,16 @@ import db from '../config/connection.js';
 
 export default async (modelName: "Question", collectionName: string) => {
   try {
-    let modelExists = await models[modelName].db.db.listCollections({
+    const model = models[modelName];
+    if(!model){
+      throw new Error(`Model ${modelName} not found.`);
+    } 
+    const mongooseDB = db; 
+    if(!mongooseDB || !mongooseDB.db) {
+      throw new Error('No connection to MongoDB.');
+    }
+
+    let modelExists = await mongooseDB.db.listCollections({
       name: collectionName
     }).toArray()
 
