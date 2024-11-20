@@ -6,8 +6,8 @@ interface IAnswer extends Document {
 }
 
 interface IQuestion extends Document {
-  question: string;
-  answers: IAnswer[];
+  question?: string;
+  answers?: IAnswer[];
 }
 
 const QuestionSchema = new Schema<IQuestion>({
